@@ -1,3 +1,5 @@
+import {staticPath} from './staticLib';
+
 const SCHEDULE_AHEAD_TIME_S = 0.2;
 const SCHEDULER_INTERVAL_S = 0.1;
 const CLEANUP_INTERVAL_S = 2.0;
@@ -254,14 +256,14 @@ function getNotesForRhythm(rhythm, swing) {
     console.error(`unknown rhythm ${rhythm}`);
 }
 
-async function loadAudioBufferFromPath(audioCtx, path) {
-    const rsvp = await fetch(`/${path}`);
+async function loadAudioBufferFromPath(audioCtx, filename) {
+    const rsvp = await fetch(staticPath(`sounds/${filename}`));
     return audioCtx.decodeAudioData(await rsvp.arrayBuffer());
 }
 
 async function loadAudioBuffers(audioCtx) {
     return {
-        metroClick: await loadAudioBufferFromPath(audioCtx, 'quartz-click.wav'),
+        // metroClick: await loadAudioBufferFromPath(audioCtx, 'quartz-click.wav'),
         stompStrong: await loadAudioBufferFromPath(audioCtx, 'stomp-strong.wav'),
         stompLight: await loadAudioBufferFromPath(audioCtx, 'stomp-light.wav'),
         topClick1: await loadAudioBufferFromPath(audioCtx, 'top-click-1.wav'),
