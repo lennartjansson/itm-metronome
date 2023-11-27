@@ -25,7 +25,7 @@ const DEFAULT_SETTINGS_BY_RHYTHM = {
     swing: 0,
   },
   slide: {
-    tempo: 138,
+    tempo: 144,
     swing: 0.33,
   },
 };
@@ -128,7 +128,7 @@ function App() {
     for (let i = 0; i < rhythms.length; i++) {
       const r = rhythms[i];
       if (i > 0) {
-        o.push(' • ');
+        o.push(<div className="gold small-cdot"> • </div>);
       }
       o.push(<RhythmLink isSelected={r === rhythm} onClick={() => setRhythm(r)}>{r}s</RhythmLink>);
     }
@@ -148,6 +148,7 @@ function App() {
 
   return (
     <div className="App">
+      <p className="gold">lennart's irish traditional music metronome</p>
       <p>{
         makeRhythmLinks([
           'reel',

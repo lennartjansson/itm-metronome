@@ -198,10 +198,10 @@ function getPolkaNotes(swing) {
 function getSlideNotes(swing) {
     return {
         stompStrong: [
-            {phase: 0.0, gain: 0.9},
-            {phase: 0.25, gain: 0.7},
+            {phase: 0.0, gain: 0.8},
+            {phase: 0.25, gain: 0.6},
             {phase: 0.5, gain: 0.7},
-            {phase: 0.75, gain: 0.7},
+            {phase: 0.75, gain: 0.6},
         ],
         stompLight: [
             // {phase: 1/3, gain: 0.5},
@@ -220,19 +220,19 @@ function getSlideNotes(swing) {
             {phase: 0.75, gain: 0.25},
         ],
         topClick1: [
-            {phase: 0.0, gain: 0.5, detune: 100},
+            {phase: 0.0, gain: 0.3, detune: 100},
         ],
         topClick2: [
-            {phase: 0.125 - 0.33 * 0.125, gain: 0.5},
+            {phase: 0.125 - 0.33 * 0.125, gain: 0.25},
             {phase: 0.125 + swing * 0.125, gain: 0.8},
             {phase: 0.25, gain: 0.5},
-            {phase: 0.375 - 0.33 * 0.125, gain: 0.6},
+            {phase: 0.375 - 0.33 * 0.125, gain: 0.35},
             {phase: 0.375 + swing * 0.125, gain: 0.8},
             {phase: 0.5, gain: 0.5, detune: -50},
-            {phase: 0.625 - 0.33 * 0.125, gain: 0.5},
+            {phase: 0.625 - 0.33 * 0.125, gain: 0.25},
             {phase: 0.625 + swing * 0.125, gain: 0.8},
             {phase: 0.75, gain: 0.5},
-            {phase: 0.875 - 0.33 * 0.125, gain: 0.6},
+            {phase: 0.875 - 0.33 * 0.125, gain: 0.35},
             {phase: 0.875 + swing * 0.125, gain: 0.8},
         ],
     };
@@ -264,12 +264,12 @@ async function loadAudioBufferFromPath(audioCtx, filename) {
 async function loadAudioBuffers(audioCtx) {
     return {
         // metroClick: await loadAudioBufferFromPath(audioCtx, 'quartz-click.wav'),
-        stompStrong: await loadAudioBufferFromPath(audioCtx, 'stomp-strong.wav'),
-        stompLight: await loadAudioBufferFromPath(audioCtx, 'stomp-light.wav'),
-        topClick1: await loadAudioBufferFromPath(audioCtx, 'top-click-1.wav'),
-        topClick2: await loadAudioBufferFromPath(audioCtx, 'top-click-2.wav'),
-        rim: await loadAudioBufferFromPath(audioCtx, 'rim.wav'),
-        woodblock: await loadAudioBufferFromPath(audioCtx, 'woodblock.wav'),
+        stompStrong: await loadAudioBufferFromPath(audioCtx, 'stomp-strong.mp3'),
+        stompLight: await loadAudioBufferFromPath(audioCtx, 'stomp-light.mp3'),
+        topClick1: await loadAudioBufferFromPath(audioCtx, 'top-click-1.mp3'),
+        topClick2: await loadAudioBufferFromPath(audioCtx, 'top-click-2.mp3'),
+        rim: await loadAudioBufferFromPath(audioCtx, 'rim.mp3'),
+        woodblock: await loadAudioBufferFromPath(audioCtx, 'woodblock.mp3'),
     };
 }
 
