@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.gold {
+  color: #7a6643;
+}
+
+.small-cdot {
+  display: inline-block;
+  font-size: 10px;
+  opacity: 0.8;
+  translate: 0 -1px;
+  padding: 0 6px;
+}
+
+.on-green {
+  color: rgb(67, 107, 67);
+}

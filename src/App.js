@@ -160,7 +160,7 @@ function App() {
         ])
       }</p>
       <p>
-        {isTicking ? 'on' : 'off'}
+        {isTicking ? <b className="on-green">on</b> : <span style={{opacity: 0.5}}>off</span>}
       </p>
       <p>
         <button onClick={() => { setIsTicking(true) }}>start</button>{' '}

@@ -264,12 +264,12 @@ async function loadAudioBufferFromPath(audioCtx, filename) {
 async function loadAudioBuffers(audioCtx) {
     return {
         // metroClick: await loadAudioBufferFromPath(audioCtx, 'quartz-click.wav'),
-        stompStrong: await loadAudioBufferFromPath(audioCtx, 'stomp-strong.mp3'),
-        stompLight: await loadAudioBufferFromPath(audioCtx, 'stomp-light.mp3'),
-        topClick1: await loadAudioBufferFromPath(audioCtx, 'top-click-1.mp3'),
-        topClick2: await loadAudioBufferFromPath(audioCtx, 'top-click-2.mp3'),
-        rim: await loadAudioBufferFromPath(audioCtx, 'rim.mp3'),
-        woodblock: await loadAudioBufferFromPath(audioCtx, 'woodblock.mp3'),
+        stompStrong: await loadAudioBufferFromPath(audioCtx, 'stomp-strong.ogg'),
+        stompLight: await loadAudioBufferFromPath(audioCtx, 'stomp-light.ogg'),
+        topClick1: await loadAudioBufferFromPath(audioCtx, 'top-click-1.ogg'),
+        topClick2: await loadAudioBufferFromPath(audioCtx, 'top-click-2.ogg'),
+        rim: await loadAudioBufferFromPath(audioCtx, 'rim.ogg'),
+        woodblock: await loadAudioBufferFromPath(audioCtx, 'woodblock.ogg'),
     };
 }
 
