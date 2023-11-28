@@ -53,8 +53,17 @@ function RhythmLink(props) {
 }
 
 function App() {
+  const [isMetronomeAudioLoading, setIsMetronomeAudioLoading] = useState(true);
+
   useEffect(() => {
     metronome.initialize(DEFAULT_RHYTHM, DEFAULT_SETTINGS_BY_RHYTHM[DEFAULT_RHYTHM].tempo, DEFAULT_SETTINGS_BY_RHYTHM[DEFAULT_RHYTHM].swing)
+    metronome.setOnAudioLoaded(() => {
+      setIsMetronomeAudioLoading(false);
+    });
+
+    return () => {
+      metronome.stopTicking();
+    }
   }, []);
 
   const [isTicking, setIsTicking] = useState(false);
@@ -160,7 +169,7 @@ function App() {
         ])
       }</p>
       <p>
-        {isTicking ? <b className="on-green">on</b> : <span style={{opacity: 0.5}}>off</span>}
+        {isMetronomeAudioLoading ? <span style={{opacity: 0.5}}>loading metronome sounds...</span> : isTicking ? <b className="on-green">on</b> : <span style={{opacity: 0.5}}>off</span>}
       </p>
       <p>
         <button onClick={() => { setIsTicking(true) }}>start</button>{' '}

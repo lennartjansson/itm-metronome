@@ -261,24 +261,10 @@ async function loadAudioBufferFromPath(audioCtx, filename) {
     return audioCtx.decodeAudioData(await rsvp.arrayBuffer());
 }
 
-async function loadAudioBuffers(audioCtx) {
-    return {
-        // metroClick: await loadAudioBufferFromPath(audioCtx, 'quartz-click.wav'),
-        stompStrong: await loadAudioBufferFromPath(audioCtx, 'stomp-strong.ogg'),
-        stompLight: await loadAudioBufferFromPath(audioCtx, 'stomp-light.ogg'),
-        topClick1: await loadAudioBufferFromPath(audioCtx, 'top-click-1.ogg'),
-        topClick2: await loadAudioBufferFromPath(audioCtx, 'top-click-2.ogg'),
-        rim: await loadAudioBufferFromPath(audioCtx, 'rim.ogg'),
-        woodblock: await loadAudioBufferFromPath(audioCtx, 'woodblock.ogg'),
-    };
-}
-
 class Metronome {
     constructor(rhythm, bpm, swing) {
         this.audioContext = new AudioContext();
-        loadAudioBuffers(this.audioContext).then((audioBuffers) => {
-            this.audioBuffers = audioBuffers;
-        });
+        this.audioBuffers = {};
         this.rhythm = rhythm;
         this.isTicking = false;
         this.bpm = bpm;
@@ -292,6 +278,24 @@ class Metronome {
         this.woodblockAmp = 1;
         this.clickAmp = 1;
         this.rimshotAmp = 1;
+
+        Promise.all([
+            this.loadAudioBufferAndAssign(this.audioContext, 'stomp-strong.ogg', 'stompStrong'),
+            this.loadAudioBufferAndAssign(this.audioContext, 'stomp-light.ogg', 'stompLight'),
+            this.loadAudioBufferAndAssign(this.audioContext, 'top-click-1.ogg', 'topClick1'),
+            this.loadAudioBufferAndAssign(this.audioContext, 'top-click-2.ogg', 'topClick2'),
+            this.loadAudioBufferAndAssign(this.audioContext, 'rim.ogg', 'rim'),
+            this.loadAudioBufferAndAssign(this.audioContext, 'woodblock.ogg', 'woodblock'),
+        ]).then(() => {
+            if (this.onAudioLoaded != null) {
+                this.onAudioLoaded();
+            }
+        });
+    }
+
+    async loadAudioBufferAndAssign(audioCtx, filename, prop) {
+        const buf = await loadAudioBufferFromPath(audioCtx, filename);
+        this.audioBuffers[prop] = buf;
     }
 
     getPhase(bpm, time) {
@@ -349,16 +353,16 @@ class Metronome {
     }
 
     playNote(soundName, time, gain, detune) {
-        if (this.audioBuffers == null) {
-            console.error(`missing all audio data`);
-            return;
-        }
-        if (this.audioBuffers[soundName] == null) {
-            console.error(`missing audio buffer for soundName = ${soundName}`);
-            return;
-        }
+        // if (this.audioBuffers == null) {
+        //     console.error(`missing all audio data`);
+        //     return;
+        // }
+        // if (this.audioBuffers[soundName] == null) {
+        //     console.error(`missing audio buffer for soundName = ${soundName}`);
+        //     return;
+        // }
         const bufferSource = new AudioBufferSourceNode(this.audioContext, {
-            buffer: this.audioBuffers[soundName] || null,
+            buffer: (this.audioBuffers && this.audioBuffers[soundName]) || null,
             detune: detune || 0,
         });
         const gainNode = new GainNode(this.audioContext, {
@@ -505,4 +509,8 @@ export function isTicking() {
 
 export function setVolumes(volumes) {
     metronomeSingleton.setVolumes(volumes);
+}
+
+export function setOnAudioLoaded(f) {
+    metronomeSingleton.onAudioLoaded = f;
 }
