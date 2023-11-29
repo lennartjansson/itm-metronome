@@ -52,3 +52,10 @@
 .on-green {
   color: rgb(67, 107, 67);
 }
+
+hr {
+  margin: 28px auto 26px;
+  max-width: 600px;
+  height: -1px;
+  border: 1px solid #d8d4d2;
+}

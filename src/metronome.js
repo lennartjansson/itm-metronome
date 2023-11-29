@@ -256,14 +256,14 @@ function getNotesForRhythm(rhythm, swing) {
     console.error(`unknown rhythm ${rhythm}`);
 }
 
-async function loadAudioBufferFromPath(audioCtx, filename) {
+export async function loadAudioBufferFromPath(audioCtx, filename) {
     const rsvp = await fetch(staticPath(`sounds/${filename}`));
     return audioCtx.decodeAudioData(await rsvp.arrayBuffer());
 }
 
 class Metronome {
-    constructor(rhythm, bpm, swing) {
-        this.audioContext = new AudioContext();
+    constructor(audioContext, rhythm, bpm, swing) {
+        this.audioContext = audioContext;
         this.audioBuffers = {};
         this.rhythm = rhythm;
         this.isTicking = false;
